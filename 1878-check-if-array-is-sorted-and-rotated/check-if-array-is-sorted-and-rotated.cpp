@@ -1,15 +1,25 @@
 class Solution {
 public:
     bool check(vector<int>& nums) {
-        int count = 0;  // Count of places where nums[i] > nums[i+1]
+        int bp = -1;
         int n = nums.size();
-        
-        for(int i = 0; i < n; i++) {
-            if(nums[i] > nums[(i+1) % n]) {  // Check decreasing order
-                count++;
+        for(int i=0;i<n-1;i++){
+            if(nums[i]>nums[i+1]){
+                bp = i+1;
             }
-            if(count > 1) return false;  // More than one drop means invalid rotation
         }
-        return true;
+        if(bp==-1) return true;
+
+        for(int i=0;i<bp-1;i++){
+            if(nums[i]>nums[i+1]){
+                return false;
+            }
+        }
+        for(int i=bp;i<n-1;i++){
+            if(nums[i]>nums[i+1]){
+                return false;
+            }
+        }
+        return nums[n - 1] <= nums[0];
     }
 };
