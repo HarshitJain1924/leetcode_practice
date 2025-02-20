@@ -6,14 +6,13 @@ public:
             integers.insert(stoi(num, 0, 2));
         }
         
+        int ans = stoi(nums[0], 0, 2);
         int n = nums.size();
-        for (int num = 0; num <= n; num++) {
-            if (integers.find(num) == integers.end()) {
-                string ans = bitset<16>(num).to_string();
-                return ans.substr(16 - n);
-            }
+        
+        while (integers.find(ans) != integers.end()) {
+            ans = rand() % (int) pow(2, n);
         }
         
-        return "";
+        return bitset<16>(ans).to_string().substr(16 - n);
     }
 };
